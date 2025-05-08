@@ -1,3 +1,15 @@
+# Initialize the Snowflake connection
+cnx = st.connection("snowflake")
+
+# Create the session from the connection
+session = cnx.session()
+
+# Make sure session is not None
+if session is None:
+    st.error("Could not establish a Snowflake session.")
+    st.stop()
+
+
 # Fetch fruit name and search term from the table
 my_dataframe = session.table("smoothies.public.fruit_options").select(
     col('FRUIT_NAME'), col('SEARCH_ON')
